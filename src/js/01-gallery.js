@@ -1,14 +1,12 @@
 // Add imports above this line
-import { galleryItems } from './gallery-items';
-// Change code below this line
-console.log(simpleLightbox);
-console.log(galleryItems);
-
+// Описан в документации
 import SimpleLightbox from "simplelightbox";
 // Дополнительный импорт стилей
 import "simplelightbox/dist/simple-lightbox.min.css";
-import simpleLightbox from 'simplelightbox';
+import { galleryItems } from './gallery-items';
+// Change code below this line
 
+console.log(galleryItems);
 const galleryDiv = document.querySelector('.gallery')
 const store ={lightbox : null}
 const markup = galleryItems.reduce(
