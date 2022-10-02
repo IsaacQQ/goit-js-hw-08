@@ -1,63 +1,31 @@
 // Add imports above this line
-// Описан в документации
-import SimpleLightbox from "simplelightbox";
-// Дополнительный импорт стилей
-import "simplelightbox/dist/simple-lightbox.min.css";
 import { galleryItems } from './gallery-items';
 // Change code below this line
 
 console.log(galleryItems);
-const galleryDiv = document.querySelector('.gallery')
-const store ={lightbox : null}
-const markup = galleryItems.reduce(
-  (acc, {preview, original, description}) =>
-  acc +
-  `<div class="gallery__item">
-  <a class="gallery__link" href="${original}">
-    <img
-    class = "gallery__image"
-    src = "${preview}"
-    data-source="${original}"
-    alt="${description}"
-    />
-    </a>
-    </div>`,
-    ""
-);
 
-galleryDiv.insertAdjacentHTML("beforeend", markup);
+import SimpleLightbox from 'simplelightbox';
 
-galleryDiv.addEventListener("click", onGalleryClick);
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-function onGalleryClick(evt){
-  console.log(evt)
-  evt.preventDefault();
-  const galleryItem = evt.target.closest('.gallery__item');
-  if(!galleryItem) return;
-  
-  const img = galleryItem.querySelector('.gallery__image')
-  const src = img.dataset.source;
-  showModal(src);
-}
-function showModal(src){
-  const basicLightbox = window.basicLightbox;
-  const instance = basicLightbox.create(getBigImgTemplate(src));
-  instance.show();
-  store.lightbox = instance
+const gallery = document.querySelector('.gallery');
+const items = [];
 
+galleryItems.forEach(element => {
+  const galleryLink = document.createElement('a');
+  galleryLink.className = 'gallery__link';
+  galleryLink.href = element.original;
+  const galleryImage = document.createElement('img');
+  galleryImage.className = 'gallery__image';
+  galleryImage.src = element.preview;
+  galleryImage.setAttribute('title', element.description);
+  galleryImage.alt = element.description;
 
-function getBigImgTemplate(src){
-  return `
-  <img src="${src}" width="800" height="600">
-  `;
-}
+  galleryLink.append(galleryImage);
+  items.push(galleryLink);
+});
+gallery.append(...items);
 
-}
-
-window.addEventListener("keydown", onKeyDown);
-function onKeyDown(evt){
-  if(evt.key !== "Escape") return;
-  if (store.lightbox && store.lightbox.close){
-    instance.close();
-  }
-}
+new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+});
