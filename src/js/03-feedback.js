@@ -11,7 +11,7 @@ const savedFormData = JSON.parse(savedFormDataJSON);
 
 
 // если разобраная строка не является null тогда считываем значения с инпутов формы.
-if (savedFormData !== null) {
+if (savedFormData) {
     feedbackForm["email"].value = savedFormData.email;
     feedbackForm["message"].value = savedFormData.message;
 };
