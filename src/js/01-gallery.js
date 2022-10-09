@@ -28,18 +28,7 @@ const markup = galleryItems.reduce(
 
 galleryDiv.insertAdjacentHTML("beforeend", markup);
 
-galleryDiv.addEventListener("click", onGalleryClick);
 
-function onGalleryClick(evt){
-  console.log(evt)
-  evt.preventDefault();
-  const galleryItem = evt.target.closest('.gallery__item');
-  if(!galleryItem) return;
-  
-  const img = galleryItem.querySelector('.gallery__image')
-  const src = img.dataset.source;
-  showModal(src);
-}
 const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: "alt",
     captionDelay: 250,

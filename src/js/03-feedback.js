@@ -37,7 +37,6 @@ feedbackForm.addEventListener("submit", event => {
 
     //удалаяет данные из localStorage и feedback-form
     localStorage.removeItem("feedback-form-state");
-    feedbackForm["email"].value = "";
-    feedbackForm["message"].value = "";
+    feedbackForm.reset()
 
 });
